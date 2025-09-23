@@ -3,18 +3,17 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Animator anim;
-    
-    private Rigidbody2D rigid;
+    private Rigidbody2D rigd;
     public float speed;
 
-    public float jumpforce = 5f;
-    public bool isground;    
-    
+    ///Pulo
+    public float jumpForce;
+    public bool isGround;
+
     void Start()
     {
-        anim=GetComponent<Animator>();
-        rigid=GetComponent<Rigidbody2D>();
-        
+        anim = GetComponent<Animator>();
+        rigd = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -22,47 +21,46 @@ public class Player : MonoBehaviour
         Move();
         Jump();
     }
-    
+
     void Move()
     {
         float teclas = Input.GetAxis("Horizontal");
-        rigid.linearVelocity = new Vector2(teclas * speed, rigid.linearVelocity.y);
-        if (teclas > 0 && isground == true)
+        rigd.linearVelocity = new Vector2(teclas * speed, rigd.linearVelocityY);
+
+        if (teclas > 0 && isGround == true)
         {
             transform.eulerAngles = new Vector2(0, 0);
             anim.SetInteger("transition", 1);
-
         }
-        if (teclas < 0 && isground == true)
+
+        if (teclas < 0 && isGround == true)
         {
             transform.eulerAngles = new Vector2(0, 180);
             anim.SetInteger("transition", 1);
-
         }
-        if (teclas == 0 && isground == true)
+
+        if (teclas == 0 && isGround == true)
         {
             anim.SetInteger("transition", 0);
         }
-
     }
+
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.W) && isground==true)
+        if (Input.GetKeyDown(KeyCode.W) && isGround == true)
         {
-            rigid.AddForce(Vector2.up * jumpforce,ForceMode2D.Impulse);
+            rigd.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             anim.SetInteger("transition", 2);
-            isground = false;
+            isGround = false;
         }
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag=="tagGround")
+        if (collision.gameObject.tag == "TagGround")
         {
-            isground = true;
-            Debug.Log("esta no chão,2");
+            isGround = true;
+            Debug.Log("ta funfando");
         }
     }
-
 }
