@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Vector2 posicaoinicial;
+    public GameManager gameManager;
+    
     public Animator anim;
     private Rigidbody2D rigd;
     public float speed;
+   
 
     ///Pulo
     public float jumpForce;
@@ -14,6 +18,8 @@ public class Player : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rigd = GetComponent<Rigidbody2D>();
+        posicaoinicial = transform.position;//pega a posicao inicial do player
+
     }
 
     void Update()
@@ -21,7 +27,11 @@ public class Player : MonoBehaviour
         Move();
         Jump();
     }
+    public void ReiniciarPosicao()
+    {
+        transform.position = posicaoinicial;
 
+    }
     void Move()
     {
         float teclas = Input.GetAxis("Horizontal");
@@ -63,4 +73,6 @@ public class Player : MonoBehaviour
             Debug.Log("ta funfando");
         }
     }
+   
+
 }

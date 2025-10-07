@@ -3,6 +3,7 @@
 public class coins : MonoBehaviour
 {
     public int pontos;
+    public GameManager gamemaneger;
     
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,7 +22,8 @@ public class coins : MonoBehaviour
     {
         if (colisao.CompareTag("Player"))
         {
-            Debug.Log("colidiu");
+            gamemaneger.addPontos(10);
+            Destroy(gameObject);
         }
 
 
